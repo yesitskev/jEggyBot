@@ -1,0 +1,86 @@
+# JEGGYBOT CONFIG FILE
+# BY MATTHEW GOSLETT
+
+bot {
+	db-type = 'mysql'
+	db-name = 'name'
+	db-address = 'localhost'
+	db-username = 'username'
+	db-password = 'password'
+	table-prefix = ''
+	remoteaddress = 'za.shadowfire.org'
+	port = '6667'
+	auto-retry-connect = 'on'
+	retry-interval = '20'
+	retry-attempts = '50'
+	nickname = 'GameBot'
+	alternative-nickname = 'GameBotCS'
+	real-name = 'jEggyBot - Matthew Goslett'
+	channel = '#pickup'
+	auto-join = '#seVens,#pm,#bravado,#rival,#ze,#powerhouse,#cm,#501,#msk,#nV'
+	gmt = '+2'
+	die-password = 'password'
+	raw-password = 'password'
+}
+
+nickserv {
+	services-nick = 'NickServ'
+	nickname-password = 'jigs22falcon89f'
+}
+
+pickup {
+	pickup-configs-dir = 'pickupconfigs'
+	default-config = 'cs1.6'
+	last-game-data = 'lastgame.dat'
+}
+
+seen {
+	seen-enabled = 'on'
+	seen-join = 'on'
+	seen-part = 'on'
+	seen-nick = 'on'
+	seen-kick = 'on'
+	seen-quit = 'on'
+}
+
+greet {
+	auto-greet-join = 'on'
+	auto-greet-part = 'off'
+	custom-greets = 'off'
+	join-message = 'Welcome to $channel, $nickname. I am the channel bot.'
+	part-message = 'Goodbye $nickname, see you soon!'
+	rules-file = 'rules.txt'
+}
+
+news {
+	max-news-items = '3'
+}
+
+google {
+	api-key = 'api-key-here'
+	search-result = '14o $url * $title * o'
+}
+
+pisg {
+	pisg-perl-path = '/usr/bin/perl'
+	pisg-script = '/home/pickupch/pisg/pisg'
+	pisg-config = '/home/pickupch/pisg/pisg.cfg'
+	pisg-log-directory = '/home/pickupch/jEggyBot/chatlogs'
+	pisg-run-time = '00:05'
+	pisg-maintainer = 'mrg'
+	pisg-network = 'ShadowFire'
+	pisg-ftp = 'true'
+	pisg-ftp-address = 'localhost'
+	pisg-ftp-username = 'pickupch'
+	pisg-ftp-password = 'password'
+	pisg-ftp-directory = '/www/chanstats'
+	pisg-output-directory = '/home/pickupch/www/chanstats'
+}
+
+wget {
+	wget-path = 'c:/downloads'
+}
+
+game-query {
+	query-format = '14$server has $players/$maxplayers players on it playing $game on the map $map'
+}

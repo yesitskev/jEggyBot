@@ -1,0 +1,72 @@
+<project name="jEggyBot" default="compile" basedir="./">
+	<description>
+		jEggyBot
+	</description>
+	<!-- set global properties -->
+	<property name="version" value="1.6"/>
+	<property name="src" value="src"/>
+	<property name="build" value="build"/>
+	<property name="deploy" value="deploy"/>
+	<property name="backup" value="backup"/>
+
+	<target name="compile" description="compile application">
+		<!-- create build directory structure -->
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build}/plugins"/>
+		<mkdir dir="${build}/modules"/>
+		<mkdir dir="${build}/logs"/>
+		<!-- compile jeggybot core and plugin files -->
+		<path id="project.classpath">
+			<fileset dir="${src}/libraries">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<javac srcdir="${src}/jeggybot" destdir="${build}" source="1.5" target="1.5">
+			<classpath refid="project.classpath" />
+		</javac>
+		<javac srcdir="${src}/modules" destdir="${build}" classpath="${build}" source="1.5" target="1.5">
+			<classpath refid="project.classpath" />
+		</javac>
+		<javac srcdir="${src}/plugins" destdir="${build}" classpath="${build}" source="1.5" target="1.5">
+			<classpath refid="project.classpath" />
+		</javac>
+		<!-- copy libraries/other classes to build directory -->
+		<copy todir="${build}/libraries">
+			<fileset dir="${src}/libraries"/>
+		</copy>
+		<!-- copy required config files -->
+		<copy file="${src}/settings.txt" todir="${build}"/>
+		<copy file="${src}/rules.txt" todir="${build}"/>
+		<copy file="${src}/8ball.txt" todir="${build}"/>
+		<copy todir="${build}/pickupconfigs">
+			<fileset dir="${src}/pickupconfigs"/>
+		</copy>
+	</target>
+	
+	<target name="deploy" depends="compile" description="deploy package">
+		<!-- create deploy directory structure -->
+		<mkdir dir="${deploy}"/>
+		<mkdir dir="${deploy}/logs"/>
+		<!-- generate an executable jar file containing jeggybot package -->
+		<jar destfile="${deploy}/jEggyBot.jar" basedir="${build}" includes="jeggybot/**,libraries/**">
+			<manifest>
+				<attribute name="Built-By" value="Matthew Goslett"/>
+				<attribute name="Main-Class" value="jeggybot.jEggyBot"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+		</jar>
+		<!-- generate jar packages for all plugin files -->
+		
+		<!-- copy required config files -->
+		<copy file="${build}/settings.txt" todir="${deploy}"/>
+		<copy file="${build}/rules.txt" todir="${deploy}"/>
+		<copy file="${build}/8ball.txt" todir="${deploy}"/>
+		<!-- zip a copy of the source code, and include it in deploy -->
+		<zip destfile="${deploy}/src.zip" basedir="${src}" includes="jeggybot/**,plugins/**"/>
+		<!-- zip entire package, and place it in backup directory -->
+		<mkdir dir="${backup}"/>
+		<zip destfile="${backup}/jEggyBot${version}.zip" basedir="${deploy}"/>
+		<!-- delete deploy directory -->
+		<delete dir="deploy"/>
+	</target>
+</project>
